@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gerador de senhas seguro com crypto.getRandomValues, medidor de forca e historico temporario.">
+  <title>Gerador de Senhas Seguro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="password-card" aria-labelledby="app-title">
+      <div class="topbar">
+        <div>
+          <p class="eyebrow">Seguranca local</p>
+          <h1 id="app-title">Gerador de Senhas</h1>
+        </div>
+
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Alternar tema claro ou escuro">
+          <span class="theme-toggle__track" aria-hidden="true">
+            <span class="theme-toggle__thumb"></span>
+          </span>
+        </button>
+      </div>
+
+      <div class="password-output" aria-live="polite">
+        <label class="sr-only" for="passwordField">Senha gerada</label>
+        <input id="passwordField" type="text" readonly aria-label="Senha gerada">
+        <button id="copyButton" class="icon-button" type="button" aria-label="Copiar senha">
+          Copiar
+        </button>
+      </div>
+
+      <div class="actions">
+        <button id="generateButton" class="primary-button" type="button" aria-label="Gerar nova senha">
+          Gerar Nova
+        </button>
+        <span class="shortcut" aria-label="Atalho: tecla espaco">Espaco</span>
+      </div>
+
+      <p id="statusMessage" class="status-message" role="status" aria-live="polite"></p>
+
+      <div class="strength-panel" aria-label="Indicadores de seguranca da senha">
+        <div class="strength-header">
+          <span>Forca</span>
+          <strong id="strengthLabel">Forte</strong>
+        </div>
+        <div class="strength-meter" aria-hidden="true">
+          <span id="strengthBar"></span>
+        </div>
+        <div class="entropy-row">
+          <span>Entropia estimada</span>
+          <strong><span id="entropyValue">0</span> bits</strong>
+        </div>
+      </div>
+
+      <form class="controls" aria-label="Opcoes do gerador de senhas">
+        <div class="control-group length-group">
+          <div class="control-title">
+            <label for="lengthSlider">Comprimento</label>
+            <input id="lengthInput" type="number" min="8" max="64" value="12" aria-label="Comprimento da senha">
+          </div>
+          <input id="lengthSlider" type="range" min="8" max="64" value="12" aria-label="Ajustar comprimento da senha">
+        </div>
+
+        <fieldset class="control-group">
+          <legend>Tipos de caracteres</legend>
+          <label class="check-row">
+            <input id="uppercase" type="checkbox" checked>
+            <span>Maiusculas</span>
+          </label>
+          <label class="check-row">
+            <input id="lowercase" type="checkbox" checked>
+            <span>Minusculas</span>
+          </label>
+          <label class="check-row">
+            <input id="numbers" type="checkbox" checked>
+            <span>Numeros</span>
+          </label>
+          <label class="check-row">
+            <input id="symbols" type="checkbox" checked>
+            <span>Especiais (!@#$%...)</span>
+          </label>
+          <label class="check-row">
+            <input id="avoidAmbiguous" type="checkbox">
+            <span>Evitar ambiguos (il1Lo0O)</span>
+          </label>
+        </fieldset>
+      </form>
+    </section>
+
+    <aside class="history-card" aria-labelledby="history-title">
+      <div class="history-header">
+        <p class="eyebrow">Sessao atual</p>
+        <h2 id="history-title">Historico</h2>
+      </div>
+      <ol id="historyList" class="history-list" aria-live="polite"></ol>
+      <p id="emptyHistory" class="empty-history">As ultimas 5 senhas aparecem aqui apenas temporariamente.</p>
+    </aside>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
